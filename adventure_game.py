@@ -1,15 +1,15 @@
 import sys
 import time
 
+#initializing the player and the players stats for the game
 class player:
     def __init__(self, name, health, turns_tkn):
         self.name = name
         self.health = health
         self.turns_tkn = turns_tkn
 
-
-active_string = ""
-def type_slow():
+#function to simulate typing on a keyboard from the code narrator of the game
+def type_slow(active_string):
     for char in active_string: 
         print(char, end='') 
         sys.stdout.flush() 
@@ -18,24 +18,30 @@ def type_slow():
 def name_func():
     user_name = input("what is your name? ")
     if user_name.isalpha():
-        player_1 = player(user_name, 100, 0)
+        player_1 = player(user_name.upper(), 100, 0)
+        type_slow("Hello " + str(player_1.name))
+        intro_func()
     else:
         print("try again")
         name_func()
 
+#intro to 
+def intro_func():
+    f = open("intro_quips.txt", "r")
+    narrate = f.readlines()
+    type_slow(narrate[0])
+    type_slow(narrate[1])
+    type_slow(narrate[2])
+    type_slow(narrate[3])
+    type_slow(narrate[4])
+    type_slow(narrate[5])
+    type_slow(narrate[6])
+    type_slow(narrate[7])
 
 
 
 name_func()
+
+#type_slow()
 #print(turns_tkn)
 
-
-#print("you're not from around these parts are you, ", name)
-#print("Local legends spoke of an enormous treasure deep within the dark forest on the outskirts of the village.")
-#print("The treasure was believed to be the riches from a band of successful pirates who terrorized the area until the Yeti came along.")
-#print("The Yeti stands taller than 9 feet with hands the size of pumpkins.")
-#print("The Yeti must have wanted to take back his lands because he drove the pirates from their treasure.")
-#print("No one has ever lived to see the treasure ever since the Yeti has reclaimed the forest.")
-
-f = open("intro_quips.txt", "r")
-text_1 = print(f.readline())
