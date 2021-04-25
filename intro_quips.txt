@@ -1,8 +1,16 @@
 , it is good to meet you.
-Reiner: I am Reiner.
+I am Reiner.
 ...
 Reiner: I must say, You caught me at a rather stressful time.
-Reiner: Come with me, you don't want to be out here all alone!
-*You went with Reiner to his house*
-Reiner: So, by this point you have guessed that I am a fisherman by trade.
-Reiner:  
+Reiner: I am on my way back from a week's journey at sea!
+*He is carrying a large sack of fish over his shoulder*
+Reiner: Rough weather coming in let me tell you.
+Reiner: I see that you are without supplies, you must be hungry!
+Reiner: Come with me, you don't want to be out here with night approaching!
+*You went with Reiner to rest at his house*
+Reiner: So, now that I know you aren't a pirate,
+Reiner: I can tell you about the treasure deep in the forrest!
+Reiner: The local towns around the area have been ravaged by the pirates.
+Reiner: The Pirates are notoriously evil and steal all that they can.
+Reiner: The Pirates hid their treasure deep within the forrest at a secret location.
+Reiner: If you come with me and help me find the treasure, we can split it 50/50?
