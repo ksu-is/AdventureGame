@@ -229,6 +229,43 @@ elif ans == "n":
 					print(f"You stay the night at the Tavern and heal slightly.\nYou now have {player.gold} gold left in your pockets, and your health returns to {player.maxhp} health.")
 					player.hp = player.maxhp
 
+                    	if inn == "drink":
+				if player.gold < 1:
+					print("You do not have enough gold!")
+					continue
+
+				elif player.gold >= 1:
+					cost = 1
+					player.gold = player.gold - cost
+					print(f"You stop at the bar and grab yourself a mug of grog to drink.\nYou now have {player.gold} gold left in your pockets.")
+					drinking_event = random.randint(1,100)
+
+					if drinking_event > 10 and drinking_event <= 30:
+						print(f"The grog is especially good tonight. Warmth fills your veins and you feel renewed with energy and vigor.")
+						player.hp = player.hp + 5
+						print(f"{player.hp} is your current health. {player.maxhp} is your maximum health currently.")
+
+					elif drinking_event >30 and drinking_event <=80:
+
+						if player.gold >= 5:
+							bad_bet = random.randint(1,5)
+						elif player.gold >= 2 and player.gold < 5:
+							bad_bet = random.randint(1,2)
+						elif player. gold < 2:
+							continue
+						player.gold = player.gold - bad_bet
+						print(f"Drinking was not such a good idea after all...while drunk, someone snatched {bad_bet} gold from your pockets...\nYou now have only {player.gold} gold left.")
+
+					elif drinking_event >80:
+						good_bet= random.randint(1,5)
+						player.gold = player.gold + good_bet
+						print(f"The night was filled with laughter and many bets! You won multiple bets, totaling in {good_bet} gold.\nYou now have {player.gold} gold!")
+
+
+
+					elif drinking_event <= 10:
+
+
 
 
 
