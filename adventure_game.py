@@ -113,6 +113,41 @@ if player.hp > player.maxhp:
 			locked = True
 			while locked == True:
 
+			print("You found a chest while out adventuring! It appears to be locked...Do you want to try and unlock it? (Y/N)")
+				chest = input().lower()
+
+				if chest != "y" and chest != "n":
+					print("Please enter a valid action")
+
+				elif chest == "y":
+					unlock = random.randint(1,100)
+
+					if player.lockpicks == True:
+						if unlock <= 80:
+							gold = random.randint(2,10)
+							player.gold = player.gold + gold
+							print(f"You opened the chest! You found {gold} gold inside of it!\nYou now have {player.gold} gold.")
+							locked = False
+						elif unlock > 80:
+							print("Unfortunately, you were not able to open the chest")
+							locked = False
+							continue
+
+					elif unlock > 80:
+						gold = random.randint(2,10)
+						player.gold = player.gold + gold
+						print(f"You opened the chest! You found {gold} gold inside of it!\nYou now have {player.gold} gold.")
+						locked = False
+
+					elif unlock <= 80:
+						print("Unfortunately, you were not able to open the chest")
+						locked = False
+						continue
+
+				elif chest == "n":
+					continue
+
+
 
 
 
