@@ -207,6 +207,28 @@ if player.hp > player.maxhp:
 						player.hp = 6
 						battle = False
 						break
+elif ans == "n":
+		print(f"\n{player.hp} is your current health. {player.maxhp} is your maximum health currently.")
+		print("You walk to the local village to stop at and rest for a while.\nThe local tavern costs 2 gold pieces to stay the night in,\nor you could go to the local marketplace and browse the various shops.\nYou can also see the steeple of a local church nearby, with it's high towers easily being the most noticeable object in the near vicinity.")
+		print("\nWhere will you go? (Tavern/Market/Church)")
+		village = input().lower()
+
+        	if village == "tavern":
+			print(f"The tavern is bustling with the local folk. They offer drinks for one gold piece and rooms for two gold pieces. You have {player.gold} gold.\nOne of the innkeepers asks how they can help you. (Drink/Sleep)")
+
+			inn = input().lower()
+
+			if inn == "sleep":
+				if player.gold < 2:
+					print("\nYou do not have enough gold!")
+					continue
+
+				elif player.gold >= 2:
+					cost = 2
+					player.gold = player.gold - cost
+					print(f"You stay the night at the Tavern and heal slightly.\nYou now have {player.gold} gold left in your pockets, and your health returns to {player.maxhp} health.")
+					player.hp = player.maxhp
+
 
 
 
