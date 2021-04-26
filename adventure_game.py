@@ -146,6 +146,67 @@ if player.hp > player.maxhp:
 
 				elif chest == "n":
 					continue
+		elif encounter >= 10:
+			battle = True
+
+			while battle == True:
+				if player.upg == 0:
+					enemy_class = random.choice([Goblin, Spider])
+				else:
+					enemy_class = random.choice([Goblin, Spider, Orc])
+
+				enemy = enemy_class()
+				enemy_name = enemy_class.__name__
+
+				print(f"You encounter a {enemy_name}! (A to attack)")
+
+				enemy.hp = enemy.hp + random.choice([-2, -1, 0, 1, 2])
+
+				while enemy.hp > 0 or player.hp > 0:
+					print("Press A to attack")
+					user = input().lower()
+
+					if user != "a" and user != "y":
+						print("Please enter a valid action")
+						continue
+
+					if user == "a":
+						enemy.hp = enemy.hp - player.dmg
+						print(f"You dealt {player.dmg} damage to the {enemy_name}!")
+
+					if enemy.hp <= 0:
+						print("The enemy is slain!")
+						battle = False
+
+						loot = random.randint(1,100)
+
+						if loot >= 70:
+							print("Whats this...? You found a health potion on the corpse! Some of your wounds have been healed!")
+							player.hp = player.hp + 5
+							print(f"You now have {player.hp} health.")
+						else:
+							gold = random.randint(1, 4)
+							player.gold = player.gold + gold
+
+							print(f"Whats this..? You found {gold} gold on the corpse!\nYou now have {player.gold} gold!")
+						break
+
+					if user == "a":
+						enemy.dmg = enemy.dmg + random.choice([0, 1]) - player.ac
+						player.hp = player.hp - enemy.dmg
+
+						if enemy.dmg > 0:
+							print(f"The {enemy_name} hits back! it deals {enemy.dmg} damage to you!")
+						elif enemy.dmg <= 0:
+							print(f"The {enemy_name}'s blow was completely deflected by your {player.armor}!")
+					if player.hp <= 0:
+
+						print(f"The {enemy_name} knocked you out!\nYou wake up several hours later, and discover that while you were out someone stole your gold...")
+						player.gold = 0
+						print(f"You now have {player.gold} gold")
+						player.hp = 6
+						battle = False
+						break
 
 
 
