@@ -104,6 +104,14 @@ while player.hp > 0:
 if player.hp > player.maxhp:
 		player.hp = player.maxhp
 
+	print("\nWould you like to continue onward? (Y/N)")
+	ans = input().lower()
+
+	if ans == "y":
+		encounter = random.randint(1,100)
+		if encounter < 10:
+			locked = True
+			while locked == True:
 
 
 
