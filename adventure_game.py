@@ -265,6 +265,35 @@ elif ans == "n":
 
 					elif drinking_event <= 10:
 
+                        print(f"While drunk, a tavern wench convinces you to join her in her room upstairs.\nWhile alone, she proceeds to demand all your gold and takes out a dagger.\nIt's no wench--it's a goblin in disguise!")
+						enemy_class = Goblin()
+						while enemy.hp > 0 or player.hp > 0:
+							print("Press A to attack")
+							user = input().lower()
+
+							if user != "a" and user != "y":
+								print("Please enter a valid action")
+								continue
+
+							if user == "a":
+								enemy.hp = enemy.hp - player.dmg
+								print(f"You dealt {player.dmg} damage to the goblin wench!")
+
+							if enemy.hp <= 0:
+								print("The enemy is slain!")
+
+								loot = random.randint(1,100)
+								if loot >= 70:
+									print("Whats this...? You found a health potion on the corpse! Some of your wounds have been healed!")
+									player.hp = player.hp + 5
+								else:
+									gold = random.randint(2, 5)
+									player.gold = player.gold + gold
+
+									print(f"Whats this..? You found {gold} gold on the corpse!")
+								break
+
+
 
 
 
