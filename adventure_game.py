@@ -99,6 +99,8 @@ def fifty_fifty():
         print(type_slow("try Y or N"))
         fifty_fifty()
 
+print("You rest for a short while. You have been walking today for hours, but you've been traveling the known world for as long as you remember.\nNearby you see a small village, surrounded by the forest you are currently in.\nMaybe you will stay in this area a while, and see what is has to offer...")
+while player.hp > 0:
 
 
 
