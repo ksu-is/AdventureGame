@@ -3,47 +3,69 @@ import time
 
 #initializing the player and the players stats for the game
 class Player:
-    def __init__(self, name, health, experience, turns_tkn):
+    turns_tkn = 0
+    def __init__(self, name, health, xp):
         self.name = name
-        self.health = health
-        self.experience = experience
-        self.turns_tkn = turns_tkn
-
-#method to return amount of turns a player has taken
-    def get_turns(self, turns_tkn):
-        return self.turns_tkn
-
-#method to change amount of turns tkn
-    def add_turn(self, turns_tkn):
-        self.turns_tkn + 1
-
-#method to return user name for in-game replies
+        self.health = 50
+        self.xp = 0
+        self.__class__.turns_tkn += 1
+       
+    #method to return user name for in-game replies
     def get_name(self):
         return self.name
-
-    #def exp_check(self):
-        #if self.experience >= 100:
-            #code for finding the treasure
-            
-bear_attk = {
-    "description": "you enter the dark forrest...\n a bear is charging at you!",
+         
+#dictionary objects used for storing dialogue
+bear_attk_dict = {
+    "description": "You and Reiner set off into the forrest seeking the treaure...\nWhats that?... a bear is charging at you!",
     "attack": "you stood your ground and attempted to attack the bear back!",
-    "flee": "you ran away, saving your health but gaining little experience."
+    "run": "you ran away, saving your health but gaining little experience."
 }
-#print(bear_attk["attack"])
+
+tornado_dict = {
+    "description": "you look into the distance...\nis that a tornado coming closer to us!?",
+    "attack": "you looked around for cover and found a sturdy rock cave to duck into!",
+    "run": "you ran as fast as you could away from the tornado but you \nsuffered a blow from a tree limb!"
+}
+
+angry_bees_dict = {
+    "description": "you hear a strange buzzing sound nearing your location.\na ton of angry bees are flying at you!",
+    "attack": "you tried to flail your arms all around to try and kill the bees.\nthis attempt did not work very well.",
+    "run": "you ran away from the bees, saving yourself from stings."
+}
+
+traitor_dict = {
+    "description": "Reiner pulled out a sword!\nI fooled you so I could kill and rob you!",
+    "attack": "you lunged at Reiner and tried\nto break the sword away from him.\nYou did it!",
+    "run": "you tried to run away from him but he cut you down!"
+}
+
+
+#death by injury function ends game
+def death_func():
+    if player_1.health <= 0:
+        f = open("intro_quips.txt", "r")
+        narrate = f.readlines()
+        type_slow(narrate[16])
+        input()
+        type_slow(narrate[17])
+        print(player_1.name+", you ended the game with:",player_1.xp,"points!")
+        sys.exit()
+        
+
 #function to simulate typing on a keyboard from the code narrator of the game
 def type_slow(active_string):
     for char in active_string: 
         print(char, end='') 
         sys.stdout.flush() 
-        time.sleep(0.00)
+        time.sleep(0.02)
 
 #gathering user's name to be used throughout the story
 def name_func():
     user_name = input("what is your name? ")
     if user_name.isalpha():
         global player_1
-        player_1 = Player(user_name.upper(), 100, 0, 0)
+        player_1 = Player(user_name.upper(), 50, 0)
+        type_slow("[You begin the game with 0 xp and 50 health.]\n")
         type_slow("Hello " + str(player_1.name))
         intro_func()
     else:
@@ -85,226 +107,170 @@ def intro_func():
     type_slow(narrate[14])
     input()
     type_slow(narrate[15])
-    input()
+    print("\n")
+    fifty_fifty()
 
+#first game decision is made
 def fifty_fifty():
-    user_ans = input(type_slow("would you like to help me find the treasure? (Y/N)")).lower()
+    user_ans = input(type_slow("Reiner: Would you like to help me find the treasure? (Y/N)\n")).lower()
     if user_ans == "y":
-        player_1.add_turn(1)
-        print(player_1.get_turns(1))
-        #call next function
+        player_1.turns_tkn += 1
+        bear_attk()
     elif user_ans == "n":
-        print(type_slow("ok, you have a great life now? *Reiner walked away into the forrest alone*"))
+        type_slow("Reiner: Ok, you have a great life now.\n*Reiner walked away into the forrest alone*\n")
+        type_slow("The End.")
+        sys.exit()
     else:
-        print(type_slow("try Y or N"))
+        type_slow("(try Y or N)\n")
         fifty_fifty()
 
-print("You rest for a short while. You have been walking today for hours, but you've been traveling the known world for as long as you remember.\nNearby you see a small village, surrounded by the forest you are currently in.\nMaybe you will stay in this area a while, and see what is has to offer...")
-while player.hp > 0:
-if player.hp > player.maxhp:
-		player.hp = player.maxhp
+#second game event takes place
+def bear_attk():
+    death_func()
+    input()
+    f = open("event_quips.txt", "r")
+    narrate = f.readlines()
+    type_slow(bear_attk_dict["description"])
+    input()
+    bear_inpt = input(type_slow("Quick!, do you want to run or fight?\n")).lower()
+    if bear_inpt == "fight":
+        player_1.turns_tkn += 1
+        player_1.health -= 30
+        player_1.xp += 15
+        type_slow(bear_attk_dict["attack"])
+        print("\n")
+        type_slow(narrate[0])
+        type_slow(narrate[1])
+        tornado_time()
+    elif bear_inpt == "run":
+        player_1.turns_tkn += 1
+        player_1.xp += 5
+        type_slow(bear_attk_dict["run"])
+        print("\n")
+        type_slow(narrate[2])
+        type_slow(narrate[3])
+        tornado_time()
+    else:
+        print("you have to decide now!")
+        bear_attk()
 
-	print("\nWould you like to continue onward? (Y/N)")
-	ans = input().lower()
+#third game event takes place
+def tornado_time():
+    death_func()
+    input()
+    f = open("event_quips.txt", "r")
+    narrate = f.readlines()
+    type_slow(tornado_dict["description"])
+    input()
+    tornado_inpt = input(type_slow("Quick!, do you want to run or find shelter?\n")).lower()
+    if tornado_inpt == "find shelter":
+        player_1.turns_tkn += 1
+        player_1.xp += 10
+        type_slow(tornado_dict["attack"])
+        print("\n")
+        type_slow(narrate[4])
+        type_slow(narrate[5])
+        angry_bees()
+    elif tornado_inpt == "run":
+        player_1.turns_tkn += 1
+        player_1.health -= 20
+        player_1.xp += 2
+        type_slow(tornado_dict["run"])
+        print("\n")
+        type_slow(narrate[6])
+        type_slow(narrate[7])
+        angry_bees()
+    else:
+        type_slow("you have to decide now!")
+        tornado_time()
 
-	if ans == "y":
-		encounter = random.randint(1,100)
-		if encounter < 10:
-			locked = True
-			while locked == True:
+def angry_bees():
+    death_func()
+    input()
+    f = open("event_quips.txt", "r")
+    narrate = f.readlines()
+    type_slow(angry_bees_dict["description"])
+    input()
+    bees_inpt = input(type_slow("Quick!, do you want to run or try to fight the bees?\n")).lower()
+    if bees_inpt == "fight":
+        player_1.turns_tkn += 1
+        player_1.health -= 10
+        player_1.xp += 13
+        type_slow(angry_bees_dict["attack"])
+        print("\n")
+        type_slow(narrate[8])
+        type_slow(narrate[9])
+        traitor_event()
+    elif bees_inpt == "run":
+        player_1.turns_tkn += 1
+        player_1.xp += 20
+        type_slow(angry_bees_dict["run"])
+        print("\n")
+        type_slow(narrate[10])
+        type_slow(narrate[11])
+        traitor_event()
+    else:
+        type_slow("you have to decide now!")
+        angry_bees()
 
-			print("You found a chest while out adventuring! It appears to be locked...Do you want to try and unlock it? (Y/N)")
-				chest = input().lower()
+#fourth game event takes place
+def traitor_event():
+    death_func()
+    input()
+    f = open("event_quips.txt", "r")
+    narrate = f.readlines()
+    type_slow(traitor_dict["description"])
+    input()
+    traitor_inpt = input(type_slow("Quick!, do you want to run or fight!?\n")).lower()
+    if traitor_inpt == "fight":
+        player_1.turns_tkn += 1
+        player_1.xp += 30
+        player_1.health -= 20
+        type_slow(traitor_dict["attack"])
+        print("\n")
+        type_slow(narrate[12])
+        type_slow(narrate[13])
+        defeat_reiner()
+    elif traitor_inpt == "run":
+        player_1.turns_tkn += 1
+        player_1.health -= 50
+        player_1.xp += 8
+        type_slow(traitor_dict["run"])
+        print("\n")
+        type_slow(narrate[14])
+        type_slow(narrate[15])
+        death_func()
+    else:
+        type_slow("you have to decide now!")
+        traitor_event()
 
-				if chest != "y" and chest != "n":
-					print("Please enter a valid action")
-
-				elif chest == "y":
-					unlock = random.randint(1,100)
-
-					if player.lockpicks == True:
-						if unlock <= 80:
-							gold = random.randint(2,10)
-							player.gold = player.gold + gold
-							print(f"You opened the chest! You found {gold} gold inside of it!\nYou now have {player.gold} gold.")
-							locked = False
-						elif unlock > 80:
-							print("Unfortunately, you were not able to open the chest")
-							locked = False
-							continue
-
-					elif unlock > 80:
-						gold = random.randint(2,10)
-						player.gold = player.gold + gold
-						print(f"You opened the chest! You found {gold} gold inside of it!\nYou now have {player.gold} gold.")
-						locked = False
-
-					elif unlock <= 80:
-						print("Unfortunately, you were not able to open the chest")
-						locked = False
-						continue
-
-				elif chest == "n":
-					continue
-		elif encounter >= 10:
-			battle = True
-
-			while battle == True:
-				if player.upg == 0:
-					enemy_class = random.choice([Goblin, Spider])
-				else:
-					enemy_class = random.choice([Goblin, Spider, Orc])
-
-				enemy = enemy_class()
-				enemy_name = enemy_class.__name__
-
-				print(f"You encounter a {enemy_name}! (A to attack)")
-
-				enemy.hp = enemy.hp + random.choice([-2, -1, 0, 1, 2])
-
-				while enemy.hp > 0 or player.hp > 0:
-					print("Press A to attack")
-					user = input().lower()
-
-					if user != "a" and user != "y":
-						print("Please enter a valid action")
-						continue
-
-					if user == "a":
-						enemy.hp = enemy.hp - player.dmg
-						print(f"You dealt {player.dmg} damage to the {enemy_name}!")
-
-					if enemy.hp <= 0:
-						print("The enemy is slain!")
-						battle = False
-
-						loot = random.randint(1,100)
-
-						if loot >= 70:
-							print("Whats this...? You found a health potion on the corpse! Some of your wounds have been healed!")
-							player.hp = player.hp + 5
-							print(f"You now have {player.hp} health.")
-						else:
-							gold = random.randint(1, 4)
-							player.gold = player.gold + gold
-
-							print(f"Whats this..? You found {gold} gold on the corpse!\nYou now have {player.gold} gold!")
-						break
-
-					if user == "a":
-						enemy.dmg = enemy.dmg + random.choice([0, 1]) - player.ac
-						player.hp = player.hp - enemy.dmg
-
-						if enemy.dmg > 0:
-							print(f"The {enemy_name} hits back! it deals {enemy.dmg} damage to you!")
-						elif enemy.dmg <= 0:
-							print(f"The {enemy_name}'s blow was completely deflected by your {player.armor}!")
-					if player.hp <= 0:
-
-						print(f"The {enemy_name} knocked you out!\nYou wake up several hours later, and discover that while you were out someone stole your gold...")
-						player.gold = 0
-						print(f"You now have {player.gold} gold")
-						player.hp = 6
-						battle = False
-						break
-elif ans == "n":
-		print(f"\n{player.hp} is your current health. {player.maxhp} is your maximum health currently.")
-		print("You walk to the local village to stop at and rest for a while.\nThe local tavern costs 2 gold pieces to stay the night in,\nor you could go to the local marketplace and browse the various shops.\nYou can also see the steeple of a local church nearby, with it's high towers easily being the most noticeable object in the near vicinity.")
-		print("\nWhere will you go? (Tavern/Market/Church)")
-		village = input().lower()
-
-        	if village == "tavern":
-			print(f"The tavern is bustling with the local folk. They offer drinks for one gold piece and rooms for two gold pieces. You have {player.gold} gold.\nOne of the innkeepers asks how they can help you. (Drink/Sleep)")
-
-			inn = input().lower()
-
-			if inn == "sleep":
-				if player.gold < 2:
-					print("\nYou do not have enough gold!")
-					continue
-
-				elif player.gold >= 2:
-					cost = 2
-					player.gold = player.gold - cost
-					print(f"You stay the night at the Tavern and heal slightly.\nYou now have {player.gold} gold left in your pockets, and your health returns to {player.maxhp} health.")
-					player.hp = player.maxhp
-
-                    	if inn == "drink":
-				if player.gold < 1:
-					print("You do not have enough gold!")
-					continue
-
-				elif player.gold >= 1:
-					cost = 1
-					player.gold = player.gold - cost
-					print(f"You stop at the bar and grab yourself a mug of grog to drink.\nYou now have {player.gold} gold left in your pockets.")
-					drinking_event = random.randint(1,100)
-
-					if drinking_event > 10 and drinking_event <= 30:
-						print(f"The grog is especially good tonight. Warmth fills your veins and you feel renewed with energy and vigor.")
-						player.hp = player.hp + 5
-						print(f"{player.hp} is your current health. {player.maxhp} is your maximum health currently.")
-
-					elif drinking_event >30 and drinking_event <=80:
-
-						if player.gold >= 5:
-							bad_bet = random.randint(1,5)
-						elif player.gold >= 2 and player.gold < 5:
-							bad_bet = random.randint(1,2)
-						elif player. gold < 2:
-							continue
-						player.gold = player.gold - bad_bet
-						print(f"Drinking was not such a good idea after all...while drunk, someone snatched {bad_bet} gold from your pockets...\nYou now have only {player.gold} gold left.")
-
-					elif drinking_event >80:
-						good_bet= random.randint(1,5)
-						player.gold = player.gold + good_bet
-						print(f"The night was filled with laughter and many bets! You won multiple bets, totaling in {good_bet} gold.\nYou now have {player.gold} gold!")
-
-
-
-					elif drinking_event <= 10:
-
-                        print(f"While drunk, a tavern wench convinces you to join her in her room upstairs.\nWhile alone, she proceeds to demand all your gold and takes out a dagger.\nIt's no wench--it's a goblin in disguise!")
-						enemy_class = Goblin()
-						while enemy.hp > 0 or player.hp > 0:
-							print("Press A to attack")
-							user = input().lower()
-
-							if user != "a" and user != "y":
-								print("Please enter a valid action")
-								continue
-
-							if user == "a":
-								enemy.hp = enemy.hp - player.dmg
-								print(f"You dealt {player.dmg} damage to the goblin wench!")
-
-							if enemy.hp <= 0:
-								print("The enemy is slain!")
-
-								loot = random.randint(1,100)
-								if loot >= 70:
-									print("Whats this...? You found a health potion on the corpse! Some of your wounds have been healed!")
-									player.hp = player.hp + 5
-								else:
-									gold = random.randint(2, 5)
-									player.gold = player.gold + gold
-
-									print(f"Whats this..? You found {gold} gold on the corpse!")
-								break
-
-
-
-
-
-
-
+def defeat_reiner():
+    f = open("intro_quips.txt", "r")
+    narrate = f.readlines()
+    type_slow(narrate[18])
+    input()
+    type_slow(narrate[19])
+    input()
+    type_slow(narrate[20])
+    input()
+    type_slow(narrate[21])
+    input()
+    type_slow(narrate[22])
+    input()
+    type_slow(narrate[23])
+    input()
+    type_slow(narrate[24])
+    input()
+    type_slow(narrate[25])
+    input()
+    sys.exit(str(player_1.name)+", you earned: "+str(player_1.xp)+" points.")
 
 
 
 
 name_func()
-fifty_fifty()
+
+#death_func()
 #print(player_1.get_name())
 #type_slow()
 #print(turns_tkn)
