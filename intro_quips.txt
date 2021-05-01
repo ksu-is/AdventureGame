@@ -3,7 +3,7 @@ I am Reiner.
 ...
 Reiner: I must say, You caught me at a rather stressful time.
 Reiner: I am on my way back from a week's journey at sea!
-*He is carrying a large sack of fish over his shoulder*
+*He is carrying a large sack of what appears to be fish, over his shoulder*
 Reiner: Rough weather coming in let me tell you.
 Reiner: I see that you are without supplies, you must be hungry!
 Reiner: Come with me, you don't want to be out here with night approaching!
@@ -14,3 +14,13 @@ Reiner: The local towns around the area have been ravaged by the pirates.
 Reiner: The Pirates are notoriously evil and steal all that they can.
 Reiner: The Pirates hid their treasure deep within the forrest at a secret location.
 Reiner: If you come with me and help me find the treasure, we can split it 50/50?
+Oh no! you lost too much health and died!
+Game Over :(
+Reiner: It seems that you have beaten me at my own game.
+*Reiner begins to head towards his sack*
+Reiner: You beat me, here you go.
+*Reiner handed you the sack*
+Reiner: That is the treasure I told you about.
+Reiner: I was the pirate in charge of burying the treasure that I told you about.
+Reiner: Congratgulations, Kid.
+Game Over, you Won!
