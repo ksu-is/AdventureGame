@@ -1,43 +1,27 @@
 # KSU-IS3020
-
+*Spring 2021
 # AdventureGame
 
-This is a text based adventure game with added features, making it a modern take on the classic formula.
+This is a simple text based adventure game coded in python for our IS3020 Final Project.
 
 ## Description
 
-This project is a game coded in python, to resemble the old text-based adventure games from the 80s with a more modern appeal. The game is very in-depth and fleshed out in the story, as well as the visual effects and functions within the game.
-
+This project is a game coded in python, to resemble the old text-based adventure games from the 80s. 
 ## Getting Started
-
-### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+The entire game takes place in whatever IDE you choose.
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+* Open and run the file in your IDE and enter words/phrases when prompted. 
+* The "Enter" key is used to continue to the next event in the game.
 
 ## Help
+If there are problems with the file, restart the program.
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
 
 ## Authors
 
-Contributors names and contact info
+Contributors names:
 
 Adam Hawkins
 Braxton Jemison
