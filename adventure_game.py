@@ -57,7 +57,7 @@ def type_slow(active_string):
     for char in active_string: 
         print(char, end='') 
         sys.stdout.flush() 
-        time.sleep(0.02)
+        time.sleep(0.00)
 
 #gathering user's name to be used throughout the story
 def name_func():
@@ -77,7 +77,7 @@ def intro_func():
     f = open("intro_quips.txt", "r")
     narrate = f.readlines()
     type_slow(narrate[0])
-    input("press ENTER to continue")
+    input("press ENTER after each line to continue")
     type_slow(narrate[1])
     input()
     type_slow(narrate[2])
@@ -126,8 +126,8 @@ def fifty_fifty():
 
 #second game event takes place
 def bear_attk():
+
     death_func()
-    input()
     f = open("event_quips.txt", "r")
     narrate = f.readlines()
     type_slow(bear_attk_dict["description"])
@@ -141,6 +141,8 @@ def bear_attk():
         print("\n")
         type_slow(narrate[0])
         type_slow(narrate[1])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
         tornado_time()
     elif bear_inpt == "run":
         player_1.turns_tkn += 1
@@ -149,6 +151,8 @@ def bear_attk():
         print("\n")
         type_slow(narrate[2])
         type_slow(narrate[3])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
         tornado_time()
     else:
         print("you have to decide now!")
@@ -170,6 +174,8 @@ def tornado_time():
         print("\n")
         type_slow(narrate[4])
         type_slow(narrate[5])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
         angry_bees()
     elif tornado_inpt == "run":
         player_1.turns_tkn += 1
@@ -179,11 +185,13 @@ def tornado_time():
         print("\n")
         type_slow(narrate[6])
         type_slow(narrate[7])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
         angry_bees()
     else:
         type_slow("you have to decide now!")
         tornado_time()
-
+#fourth game event takes place
 def angry_bees():
     death_func()
     input()
@@ -200,6 +208,8 @@ def angry_bees():
         print("\n")
         type_slow(narrate[8])
         type_slow(narrate[9])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
         traitor_event()
     elif bees_inpt == "run":
         player_1.turns_tkn += 1
@@ -208,12 +218,14 @@ def angry_bees():
         print("\n")
         type_slow(narrate[10])
         type_slow(narrate[11])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
         traitor_event()
     else:
         type_slow("you have to decide now!")
         angry_bees()
 
-#fourth game event takes place
+#fifth game event takes place
 def traitor_event():
     death_func()
     input()
@@ -230,6 +242,9 @@ def traitor_event():
         print("\n")
         type_slow(narrate[12])
         type_slow(narrate[13])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
+        death_func()
         defeat_reiner()
     elif traitor_inpt == "run":
         player_1.turns_tkn += 1
@@ -239,11 +254,14 @@ def traitor_event():
         print("\n")
         type_slow(narrate[14])
         type_slow(narrate[15])
+        type_slow("your current health is: "+str(player_1.health))
+        print("\n")
         death_func()
     else:
         type_slow("you have to decide now!")
         traitor_event()
-
+        
+#final function called
 def defeat_reiner():
     f = open("intro_quips.txt", "r")
     narrate = f.readlines()
@@ -265,13 +283,6 @@ def defeat_reiner():
     input()
     sys.exit(str(player_1.name)+", you earned: "+str(player_1.xp)+" points.")
 
-
-
-
 name_func()
 
-#death_func()
-#print(player_1.get_name())
-#type_slow()
-#print(turns_tkn)
 
