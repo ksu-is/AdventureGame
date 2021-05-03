@@ -57,7 +57,7 @@ def type_slow(active_string):
     for char in active_string: 
         print(char, end='') 
         sys.stdout.flush() 
-        time.sleep(0.00)
+        time.sleep(0.02)
 
 #gathering user's name to be used throughout the story
 def name_func():
